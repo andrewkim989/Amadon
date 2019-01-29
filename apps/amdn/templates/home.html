@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Amadon Store</title>
+
+        <link rel = "stylesheet" type = "text/css">
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width = device - width">
+        
+        <link rel = "stylesheet"
+        href = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity = "sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin = "anonymous">
+        
+        <style>
+            #top {
+                text-align: center;
+                background-color: rgb(160, 169, 218);
+                padding: 20px;
+            }
+            table {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th {
+                text-align: left;
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px;
+                background-color: rgb(97, 109, 214);
+                color: white;
+            }
+            tr td {
+                max-width: 300px;
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 10px;
+                background-color: rgb(237, 241, 248);
+            }
+        </style>    
+    </head>
+
+    <body>
+        <div id = "top">
+            <h1>Welcome to the Amadon store!</h1>
+            <h3>Select the items below and click on the "Buy" button to buy them!</h3>
+        </div>
+            <table class = "table table-striped">
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+                {% for item in items %}
+                    <form action = '/amadon/buy' method = 'post'>
+                        {% csrf_token %}
+                        <input type = 'hidden' name = 'product_id' value = '{{item.id}}'/>
+                        <tr>
+                            <td>{{item.name}}</td>
+                            <td>{{item.price}} bits</td>
+                            <td>
+                                <select name = 'quantity'>
+                                    <option value = '1'>1</option>
+                                    <option value = '2'>2</option>
+                                    <option value = '3'>3</option>
+                                    <option value = '4'>4</option>
+              
+              
+                                   <option value = '5'>5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type = "submit" value = 'Buy!'>
+                            </td>
+                      </tr>
+                    </form>
+                {% endfor %}
+            </table>
+            <a href = "/clear">Clear session (for testing purposes only)</a>
+    </body>
+</html>
